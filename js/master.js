@@ -1,0 +1,5 @@
+$(function() {
+	
+	$('.xmb-outer').xmb();
+	
+});

@@ -1,0 +1,91 @@
+/*********************************************** 
+ * Wrappers
+ */
+
+html, body, #container {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+body {
+   background: #000;
+	color: #fff;
+}
+
+h1, h2, h3 {
+	font-weight: 300;
+}
+
+/*********************************************** 
+ * XMB
+ */
+
+.xmb-outer {
+	position: relative;
+	height: 100%;
+}
+
+.xmb {
+	position: absolute;
+	width: 20000em;
+	margin: 0;
+	-webkit-transition: left 0.2s ease-out;
+	left: 0;
+	height: 100%;
+}
+
+	.xmb > li {
+		float: left;
+		display: inline;
+		width: 14%;
+		background: #333;
+		height: 100%;
+		-webkit-transition: background-color 0.2s ease-out;
+	}
+	.xmb > li.current {
+		background: #fff;
+		color: #000;
+	}
+	
+		.xmb > li > h2 {
+			text-align: center;
+			margin-top: 25%;
+		}
+		
+		.xmb > li > div {
+			position: relative;
+			margin-top: 20px;
+		}
+	
+		.xmb > li > div > ul {
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			height: 20000em;
+			list-style: none;
+			-webkit-transition: top 0.2s ease-out;
+			width: 100%;
+			margin: 0;
+		}
+		.xmb > li.current > div > ul {
+			opacity: 1;
+		}
+		
+			.xmb > li.current > div > ul > li {
+				padding: 10px;
+				-webkit-transition: background-color: 1s ease-out;
+					background: #fff;
+			}
+	
+			.xmb > li.current > div > ul > li.before-current {
+				margin-bottom: 50px;
+			
+			}
+	
+			.xmb > li.current > div > ul > li.current {
+				background: #000;
+				color: #fff;
+				padding: 20px 10px;
+				margin-bottom: 10px;
+			}

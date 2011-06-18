@@ -1,0 +1,22 @@
+/** -------------------------------------
+ * Taco. By Joe Critchley (@joecritchley)
+ */
+
+.c { width: 978px; margin: 0 auto; }
+.c .c { margin: 0 -20px; width: auto; }
+.g1, .g2, .g3, .g4, .g5, .g6, .g7, .g8, .g9, .g10, .g11, .g12 { margin-left: 30px; float: left; display: inline; }
+.c .c .g1, .c .c .g2, .c .c .g3, .c .c .g4, .c .c .g5, .c .c .g6,
+.c .c .g7, .c .c .g8, .c .c .g9, .c .c .g10, .c .c .g11, .c .c .g12 { margin-left: 10px; }
+.g1 { width: 54px; } .c .c .g1 { width: 74px; }
+.g2 { width: 138px; } .c .c .g2 { width: 158px;}
+.g3 { width: 222px; } .c .c .g3 { width: 242px; }
+.g4 { width: 306px; } .c .c .g4 { width: 326px; }
+.g5 { width: 390px; } .c .c .g5 { width: 410px; }
+.g6 { width: 474px; } .c .c .g6 { width: 494px; }
+.g7 { width: 558px; } .c .c .g7 { width: 578px; }
+.g8 { width: 642px; } .c .c .g8 { width: 662px; }
+.g9 { width: 726px; } .c .c .g9 { width: 746px; }
+.g10 { width: 810px; } .c .c .g10 { width: 830px; }
+.g11 { width: 894px; } .c .c .g11 { width: 914px; }
+.g12 { width: 978px; } .c .c .g12 { width: 998px; }
+.first, .g12 { margin-left: 0 !important; clear: left; }
