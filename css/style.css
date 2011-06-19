@@ -71,11 +71,14 @@ h1, h2, h3 {
 		.xmb > li.current > div > ul {
 			opacity: 1;
 		}
-		
+			
+			
+			
 			.xmb > li.current > div > ul > li {
 				padding: 10px;
 				-webkit-transition: background-color: 1s ease-out;
-					background: #fff;
+				background: #fff;
+				position: relative;
 			}
 	
 			.xmb > li.current > div > ul > li.before-current {
@@ -89,3 +92,25 @@ h1, h2, h3 {
 				padding: 20px 10px;
 				margin-bottom: 10px;
 			}
+			
+				.xmb > li.current > div > ul > li > div > ul {
+					display: none;
+					position: absolute;
+					left: 100px;
+					top: 10px;
+					width: 200px;
+					list-style: none;
+				}
+				
+				body.state-pop .xmb > li.current > div > ul > li.current > div > ul {
+					display: block;
+					
+				}
+				
+					.xmb > li.current > div > ul > li > div > ul > li {
+						padding: 10px;
+						background: white;
+						color: black;
+					}
+				
+				
