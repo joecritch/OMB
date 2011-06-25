@@ -14,80 +14,24 @@
 				right: 37,
 				up: 38,
 				left: 39,
-				down: 40
+				down: 40,
+				enter: 13
 			},
-			onInit: function(level, items) {
-				var widthPc;
-				var rules = document.styleSheets[1].rules || document.styleSheets[1].cssRules;
-				
-				// Calculate desired width
-				for(var i = 0; rules.length; i++) {
-					var rule = rules[i];
-					if(rule.selectorText.toLowerCase() == level.inner + ' ' + level.items) {
-						widthPc = rule.style.getPropertyValue('width');
-						break;
-					}
-				}
-				
-				// Set to a desired width, manually.
-				items.width($(window).width() * (parseInt(widthPc, null) / 100));
-				
-			},
-			levels: [
-				{
-					state: 'standard',
-					depth: 0,
-					inner: '.xmb',
-					items: '> li',
-					direction: 'left',
-					offset: function(index) {
-						return ($(window).width() * 0.28);
-					},
-					onMove: function() {
-						
-					},
-					currentClass: 'current'
-				},
-				{
-					state: 'standard',
-					depth: 1,
-					inner: '> div > ul',
-					items: '> li',
-					direction: 'top',
-					offset: function(newCurrent) {
-						if(newCurrent.index() >= 2) {
-							return -50;
-						}
-					},
-					onMove: function(items, newCurrent) {
-						// Set 'before-current' for animations
-						items.removeClass('before-current');
-						var prev = newCurrent.prev('li');
-						if(prev.length) {
-							prev.addClass('before-current');
-
-						}
-					},
-					currentClass: 'current'
-				},
-				{
-					state: 'pop',
-					depth: 2,
-					inner: '> div > ul',
-					items: '> li',
-					direction: 'top',
-					offset: '10px',
-					onMove: function() {
-						
-					},
-					currentClass: 'current'
-				}
-			]
+			onInit: function(level, items) { },
+			level: {
+				state: 'pop',
+				inner: '> div > ul',
+				items: '> li',
+				direction: 'top',
+				currentClass: 'current',
+				offset: null,
+				onMove: function(items, newCurrent) { }
+			}
 		}
 	};
 	
 	function XMB(root, settings) {
-
+		
 		var self = this,
 			fire = root.add(self),
 			activeLevel,
@@ -98,19 +42,24 @@
 				'top': 'height'
 			};
 		
+		// Merge individual depths with level template
+		var levels = [];
+		$.each(settings.levels, function(k, v) {
+			var mergedLevel = $.extend({}, settings.level, this);
+			mergedLevel.depth = parseInt(k);
+			levels.push(mergedLevel);
+		});
+		
 		// Constructor	
 		self.init = function() {	
 			
-			var level = settings.levels[currentDepth];
+			var level = levels[currentDepth];
 			activeLevel = $(level.inner);
 			var items = activeLevel.find(level.items);
 			
-			
 			///////////////////////////////////////////////////////////
-			settings.onInit.apply(level, [level, items]); // self, [level, items]
+			settings.onInit.apply(level, [level, items]); 
 			///////////////////////////////////////////////////////////
-			
-		
 			
 			// Move to current item.
 			self.move(0, 0);
@@ -189,7 +138,6 @@
 			goTo: function(element) {
 				
 				var newLevel = element.parent();
-
 				var levelProps = self.getLevelProperties(newLevel);
 				
 				// Current index on new level
@@ -218,7 +166,7 @@
 			
 			getLevelProperties: function(level) {
 				var levelProps;
-				$.each(settings.levels, function() {
+				$.each(levels, function() {
 					if(this.depth == level.data('level')) {
 						levelProps = this;
 						return false;
@@ -239,6 +187,9 @@
 					if(childLevel.state) {
 						self.changeState(childLevel.state);
 					}
+					childMenu.find(childLevel.items).removeClass(childLevel.currentClass);
+					childMenu.find(childLevel.items).eq(0).addClass(childLevel.currentClass);
+					self.move(childLevel.depth, null, 0);
 				}
 			},
 			
@@ -259,7 +210,7 @@
 			*/
 			
 			changeState: function(state) {
-				$.each(settings.levels, function() {
+				$.each(levels, function() {
 					if(this.state) {
 						$('body').removeClass(settings.statePrefix + this.state);
 					}
@@ -267,34 +218,39 @@
 				$('body').addClass(settings.statePrefix + state);
 			},
 						
-			// @todo -- KLUDGED
 			getDimensionValue: function(level, item) {
 				var dimension = mapping[level.direction];
 				return (dimension == 'width') ? item.outerWidth(true) : item.outerHeight(true);
 			},
 			
-			move: function(l, d) {
+			move: function(l, d, i) {
 				
-				var level = settings.levels[l],
+				var level = levels[l],
 					items = activeLevel.find(level.items),
 					current = self.getCurrent(level, items),
 					itemWidth = items.eq(0).outerWidth(true),
 					offset,
 					indent;
-			
+				
 				// Get a new current based off the direction
-				var newCurrent = items.eq(current.index() + d);
-				if(!newCurrent.length || (current.index() + d) < 0) {
-					if(d > 0) {
-						newCurrent = items.last();
-					}
-					else {
-						newCurrent = items.first();
+				if(d !== null) {
+					var newCurrent = items.eq(current.index() + d);
+					if(!newCurrent.length || (current.index() + d) < 0) {
+						if(d > 0) {
+							newCurrent = items.last();
+						}
+						else {
+							newCurrent = items.first();
+						}
 					}
 				}
-				
+				// A particular index has been provided.
+				else if(i !== null) {
+					newCurrent = items.eq(i);
+				}
+	
 				///////////////////////////////////////////////////////////
-				offset = (typeof level.offset == 'function') ? level.offset.apply(level, [newCurrent]) : level.offset;
+				offset = (typeof level.offset == 'function') ? level.offset.apply(level, [newCurrent]) : parseInt(level.offset, null);
 				///////////////////////////////////////////////////////////
 				
 				// Set current 
@@ -302,21 +258,21 @@
 				newCurrent.addClass(level.currentClass);
 				
 				///////////////////////////////////////////////////////////
-				level.onMove.apply(level, [newCurrent, items]);
+				level.onMove.apply(level, [items, newCurrent]);
 				///////////////////////////////////////////////////////////
 				
 				indent = parseInt(((newCurrent.index() * self.getDimensionValue(level, items.eq(0))) *-1) +  offset, null);
 		
 				activeLevel.css(level.direction, indent);
-				
-				
-							
+									
 			}
 			
 		});
 				
 		// Private methods
 		
+		
+		//////////////////////////
 		
 		self.init();
 				

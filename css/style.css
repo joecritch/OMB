@@ -59,7 +59,7 @@ h1, h2, h3 {
 		}
 	
 		.xmb > li > div > ul {
-			opacity: 0;
+			display: none;
 			position: absolute;
 			top: 0;
 			height: 20000em;
@@ -69,7 +69,7 @@ h1, h2, h3 {
 			margin: 0;
 		}
 		.xmb > li.current > div > ul {
-			opacity: 1;
+			display: block;
 		}
 			
 			
@@ -103,14 +103,17 @@ h1, h2, h3 {
 				}
 				
 				body.state-pop .xmb > li.current > div > ul > li.current > div > ul {
-					display: block;
-					
+					display: block;		
 				}
 				
 					.xmb > li.current > div > ul > li > div > ul > li {
 						padding: 10px;
 						background: white;
 						color: black;
+					}
+					
+					.xmb > li.current > div > ul > li > div > ul > li.current {
+						background: yellow;
 					}
 				
 				
