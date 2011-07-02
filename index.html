@@ -3,226 +3,242 @@
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<title>XMB &bull; Joe Critchley</title>
+	<title>OMB &bull; Joe Critchley</title>
 	<link rel="stylesheet" href="css/setup.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/libs/modernizr-2.0.min.js"></script>
+	
+	<style>
+	/** Demo styles -- ignore me **/
+	#container > header { position: absolute; bottom: 10px; left: 20px; right: 20px; color: white; z-index: 100; overflow: hidden; }
+	#container > header h1 { font-size: 20px; font-weight: bold; float: left; margin-right: 20px; color: yellow; }
+	#container > header a { color: white; border-bottom: 1px dotted rgba(255, 255, 255, 0.5); text-decoration: none; float: left; position: relative; top: 3px; }
+	#container > header a:hover { border-bottom-style: solid; }
+	#container > header > span { float: right; }
+	/** **/
+	</style>
+	
 </head>
 
 <body>
 	
 	<div id="container">
 		
+		<header>
+			<h1>OMB. Open Media Bar.</h1>
+			<p><a href="http://joecritchley.com/articles/omb">Read about the OMB project</a></p>
+			<span><a href="http://twitter.com/joecritchley">By @joecritchley</a></span>
+		</header>
 
-			<div class="omb-outer">
+		<div class="omb-outer">
+		
+			<canvas id="background" resize keepalive="true"></canvas>
+		
+			<ul data-level="0" class="omb">
 			
-				<canvas id="background" resize keepalive="true"></canvas>
+				<li class="users">
+					
+					<h2><i></i><span>Users</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="clearfix turn-off current"><i></i><span class="title">Turn Off System</span></li>
+						<li class="clearfix create-user"><i></i><span class="title">Create New User</span></li>
+						<li class="clearfix existing-user"><i></i><span class="title">User 1</span></li>
+					</ul>
+					</div>
+				</li>
 			
-				<ul data-level="0" class="omb">
-				
-					<li class="users">
-						
-						<h2><i></i><span>Users</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="clearfix turn-off current"><i></i><span class="title">Turn Off System</span></li>
-							<li class="clearfix create-user"><i></i><span class="title">Create New User</span></li>
-							<li class="clearfix existing-user"><i></i><span class="title">User 1</span></li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="settings current">
-						<h2><i></i><span>Settings</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current game-settings"><i></i><span>Game Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="video-settings"><i></i><span>Video Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="game-settings"><i></i><span>Music Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>
-							</li>
-							<li class="audio-settings"><i></i><span>Audio Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="security-settings"><i></i><span>Security Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="system-settings"><i></i><span>System  Settings</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="photo">
-						<h2><i></i><span>Photo</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current media-server"><i></i><span>Search for Media Servers</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="playlists"><i></i><span>Playlists</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="music">
-						<h2><i></i><span>Music</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current media-server"><i></i><span>Search for Media Servers</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="playlists"><i></i><span>Playlists</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="video">
-						<h2><i></i><span>Video</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current media-server"><i></i><span>Search for Media Servers</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="uploader"><i></i><span>Video Editor &amp; Uploader</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="game">
-						<h2><i></i><span>Game</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current memory"><i></i><span>Memory Card Utility (PS/PS2)</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-							<li class="trophy"><i></i><span>Trophy Collection</span>
-								<div>
-									<ul data-level="2">
-										<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
-										<li>Suspendisse vel dui tortor</li>
-										<li>Suspendisse potenti.</li>
-									</ul>
-								</div>	
-							</li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="network">
-						<h2><i></i><span>Network</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current browser"><i></i><span>Internet Browser</span></li>
-							<li class="download"><i></i><span>Download Management</span></li>
-							<li class="search"><i></i><span>Internet Search</span></li>
-						</ul>
-						</div>
-					</li>
-				
-					<li class="friends">
-						<h2><i></i><span>Friends</span></h2>
-						<div>
-						<ul data-level="1">
-							<li class="current message"><i></i><span>Message Box</span></li>
-							<li class="players"><i></i><span>Players Met</span></li>
-							<li class="add-friend"><i></i><span>Add a Friend</span></li>
-						</ul>
-						</div>
-					</li>
-				
-				</ul>
+				<li class="settings current">
+					<h2><i></i><span>Settings</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current game-settings"><i></i><span>Game Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="video-settings"><i></i><span>Video Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="game-settings"><i></i><span>Music Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>
+						</li>
+						<li class="audio-settings"><i></i><span>Audio Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="security-settings"><i></i><span>Security Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="system-settings"><i></i><span>System  Settings</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+					</ul>
+					</div>
+				</li>
 			
-			</div>
+				<li class="photo">
+					<h2><i></i><span>Photo</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current media-server"><i></i><span>Search for Media Servers</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="playlists"><i></i><span>Playlists</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+					</ul>
+					</div>
+				</li>
+			
+				<li class="music">
+					<h2><i></i><span>Music</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current media-server"><i></i><span>Search for Media Servers</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="playlists"><i></i><span>Playlists</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+					</ul>
+					</div>
+				</li>
+			
+				<li class="video">
+					<h2><i></i><span>Video</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current media-server"><i></i><span>Search for Media Servers</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="uploader"><i></i><span>Video Editor &amp; Uploader</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+					</ul>
+					</div>
+				</li>
+			
+				<li class="game">
+					<h2><i></i><span>Game</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current memory"><i></i><span>Memory Card Utility (PS/PS2)</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+						<li class="trophy"><i></i><span>Trophy Collection</span>
+							<div>
+								<ul data-level="2">
+									<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+									<li>Suspendisse vel dui tortor</li>
+									<li>Suspendisse potenti.</li>
+								</ul>
+							</div>	
+						</li>
+					</ul>
+					</div>
+				</li>
+			
+				<li class="network">
+					<h2><i></i><span>Network</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current browser"><i></i><span>Internet Browser</span></li>
+						<li class="download"><i></i><span>Download Management</span></li>
+						<li class="search"><i></i><span>Internet Search</span></li>
+					</ul>
+					</div>
+				</li>
+			
+				<li class="friends">
+					<h2><i></i><span>Friends</span></h2>
+					<div>
+					<ul data-level="1">
+						<li class="current message"><i></i><span>Message Box</span></li>
+						<li class="players"><i></i><span>Players Met</span></li>
+						<li class="add-friend"><i></i><span>Add a Friend</span></li>
+					</ul>
+					</div>
+				</li>
+			
+			</ul>
+		
+		</div>
 
 	</div>
 
