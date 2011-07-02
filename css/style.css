@@ -288,3 +288,14 @@ h2 > i { width: 90px; height: 90px; background: none no-repeat 50% 50%; -webkit-
 	width: 100%;
 	z-index: 2;
 }
+
+/*********************************************** 
+ * Mobile
+ */
+
+@media screen and (max-device-width: 320px) {
+	#container > header h1,
+	.fork-me {
+		display: none;
+	}
+}

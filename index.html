@@ -4,8 +4,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>OMB &bull; Joe Critchley</title>
-	<link rel="stylesheet" href="css/setup.css">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="/css/setup.css">
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<meta name="viewport" content="initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes"> 
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	
 	<style>
 	/** Demo styles -- ignore me **/
@@ -17,17 +21,17 @@
 	/** **/
 	</style>
 	
-	
+	<script src="/js/modernizr-1.7.min.js"></script>
 	
 </head>
 
 <body>
 	
-	 <div id="github-badge"></div>
+	<div id="github-badge"></div>
 	
 	<div id="container">
 		
-		<a href="http://github.com/joecritch/OMB"><img style="position: absolute; z-index: 1000; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+		<a href="http://github.com/joecritch/OMB" class="fork-me"><img style="position: absolute; z-index: 1000; top: 0; right: 0; border: 0;" src="https://d3nwyuy0nl342s.cloudfront.net/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
 		
 		<header>
 			<h1>OMB. Open Media Bar.</h1>
@@ -35,7 +39,7 @@
 			<span><a href="http://twitter.com/joecritchley">By @joecritchley</a></span>
 		</header>
 
-		<div class="omb-outer">
+		<div class="omb-outer" ontouchmove="touchMove(event);">
 		
 			<canvas id="background" resize keepalive="true"></canvas>
 		
@@ -249,9 +253,9 @@
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
 	<script src="http://code.jquery.com/mobile/1.0b1/jquery.mobile-1.0b1.min.js"></script>
-	<script src="js/jquery.jc.omb.js"></script>
-	<script src="js/paper.js"></script>
-	<script src="js/master.js"></script>
+	<script src="/js/jquery.jc.omb.js"></script>
+	<script src="/js/paper.js"></script>
+	<script src="/js/master.js"></script>
 	<script type="text/paperscript" canvas="background">
 	
 	/**

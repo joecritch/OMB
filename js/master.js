@@ -146,20 +146,27 @@ $(function() {
 	});
 	
 	
+	window.scrollTo(0, 1);
+
+		touchMove = function(event) {
+			// Prevent scrolling on this element
+			event.preventDefault();
+		}
+	
 	$omb.bind('swipeleft', function(e) {
 		// console.log
-		$(window).trigger('keyup', [keyboardControls.left]);
+		$(window).trigger('keyup', [keyboardControls.right]);
 		return false;
 	}).bind('swiperight', function(e) {
-		$(window).trigger('keyup', [keyboardControls.right]);
+		$(window).trigger('keyup', [keyboardControls.left]);
 		return false;
 	}).bind('swipeup', function(e) {
 		e.preventDefault();
-		$(window).trigger('keyup', [keyboardControls.up]);
+		$(window).trigger('keyup', [keyboardControls.down]);
 		return false;
 	}).bind('swipedown', function(e) {
 		e.preventDefault();
-		$(window).trigger('keyup', [keyboardControls.down]);
+		$(window).trigger('keyup', [keyboardControls.up]);
 		return false;
 	});
 	
