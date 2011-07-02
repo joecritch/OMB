@@ -1,9 +1,6 @@
 (function($) {
 	
 	// @todo -- Some selectors are still hardcoded
-	// @todo -- Have some kind of "standard level", along with its props, which are then overriden. 
-	// @todo -- Keyboard controls >> check they're correct, and implement.
-	// @todo -- Avoid using the [data] attribute for levels?
 	
 	$.jc = $.jc || {};
 	$.jc.xmb = {
@@ -11,9 +8,9 @@
 			statePrefix: 'state-',
 			keyboard: true,
 			keyboardControls: {
-				right: 37,
+				right: 39,
 				up: 38,
-				left: 39,
+				left: 37,
 				down: 40,
 				enter: 13
 			},
@@ -68,66 +65,90 @@
 			// We'll deal with whether that's viable later.
 			root.find('li').click(function(e) {
 				var element = $(this);
+				var currentLevel = levels[currentDepth];
+				var currentItems = activeLevel.find(currentLevel.items);
+				var currentElement = self.getCurrent(currentLevel, currentItems);
 				self.goTo(element);
-				self.openChild(element);
+				
+	
+				if(currentElement[0].isSameNode(element[0])) {
+					self.openChild(element);
+				}	
 				return false;
 			});
 			
-			/*
-			
 			if(settings.keyboard) {
-			
-				// Keyboard controls		
 				$(window).keyup(function(e) {
-				
-					var keyCode = e.keyCode || e.which;
-
-					// Deal with moving around
-					// @todo -- ABSTRACT!!!!!
-					var done = false;
-					$.each(settings.levels, function(k, v) {
-						$.each(v.controls, function(j, direction) {
-							var newLevel,
-								currentItem;
-						
-							if(j == keyCode) {
-							
-								console.log('v.depth', v.depth);
-								console.log('currentDepth', currentDepth);
-							
-								if(v.depth > currentDepth) {					
-									currentItem = self.getCurrent(level, items);
-									newLevel = currentItem.find(v.inner);
-									// console.info('increase to', v.depth);
-									self.increaseLevel(newLevel);
+					var level = self.getLevelProperties(activeLevel);
+					var currentItems = activeLevel.find(level.items);
+					switch(e.which) {
+						case settings.keyboardControls.right:
+							if(level.depth < 2) {
+								var element = root.find('> ul > li').filter('.current').next('li');
+								if(element.length) {
+									self.goTo(element);
 								}
-								else if(v.depth < currentDepth) {
-									self.decreaseLevel();
-								
-								}
-							
-								if(direction !== 0) {
-									self.move(currentDepth, direction);
-								}
-								else if(v.state) {
-									self.changeState(v.state);
-								}
-						
-		
-								done = true;
-								return false;		
-							
 							}
-						});
-						if(done == true) {
-							return false;
+						break;
+						case settings.keyboardControls.up:
+						var currentItem;
+						if(level.depth == 0) {
+					//		self.getCurrent(currentItems)
+							currentItem = activeLevel.find('li.current > div > ul > li.current');
+							
+							// current item + its inner + the current item in there
 						}
-					});
-				
+						else {
+							currentItem = activeLevel.find('li.current');
+						}
+						var newCurrent = currentItem.prev('li');
+						if(newCurrent.length) {
+							self.goTo(newCurrent);
+						}	
+						break;
+						case settings.keyboardControls.left:
+							if(level.depth < 2) {
+								var element = root.find('> ul > li').filter('.current').prev('li');
+								
+							}
+							else {
+								var element = root.find('> ul > li.current > div > ul > li.current');
+								
+							}
+							if(element.length) {
+								self.goTo(element);
+							}
+						break;
+						case settings.keyboardControls.down:
+						var currentItem;
+						if(level.depth == 0) {
+							 currentItem = activeLevel.find('li.current > div > ul > li.current');
+						}
+						else {
+							currentItem = activeLevel.find('li.current');
+						}
+						var newCurrent = currentItem.next('li');
+						if(newCurrent.length) {
+							self.goTo(newCurrent);
+						}
+						break;
+						
+						case settings.keyboardControls.enter:
+						
+						var childMenu;
+						// Go slightly deeper if its on the top level.
+						if(level.depth == 0) {
+							childMenu = activeLevel.find('li.current > div > ul > li.current > div > ul');
+							self.openChild(activeLevel.find('li.current > div > ul > li.current'));
+						}
+						else {
+							childMenu = activeLevel.find('li.current > div > ul');
+							self.openChild(activeLevel.find('li.current'));
+						}
+						break;
+					}
 				});
-			
 			}
-			*/
 			
 		};
 		
@@ -193,22 +214,6 @@
 				}
 			},
 			
-			/*
-						
-			increaseLevel: function(newLevel) {
-				parentLevel = activeLevel;
-				activeLevel = newLevel;
-				currentDepth ++;			
-			},
-			
-			decreaseLevel: function() {
-				activeLevel = parentLevel;
-				parentLevel = parentLevel.closest('ul'); // @todo -- Make this dynamic.
-				currentDepth --;
-			},
-			
-			*/
-			
 			changeState: function(state) {
 				$.each(levels, function() {
 					if(this.state) {
@@ -228,7 +233,6 @@
 				var level = levels[l],
 					items = activeLevel.find(level.items),
 					current = self.getCurrent(level, items),
-					itemWidth = items.eq(0).outerWidth(true),
 					offset,
 					indent;
 				
@@ -248,6 +252,8 @@
 				else if(i !== null) {
 					newCurrent = items.eq(i);
 				}
+				
+				
 	
 				///////////////////////////////////////////////////////////
 				offset = (typeof level.offset == 'function') ? level.offset.apply(level, [newCurrent]) : parseInt(level.offset, null);
@@ -261,21 +267,22 @@
 				level.onMove.apply(level, [items, newCurrent]);
 				///////////////////////////////////////////////////////////
 				
-				indent = parseInt(((newCurrent.index() * self.getDimensionValue(level, items.eq(0))) *-1) +  offset, null);
-		
+				var totalToCurrent = 0;
+				items.each(function(i) {
+					if($(this).hasClass(level.currentClass)) {
+						return false;
+					}
+					totalToCurrent += level.itemHeight;			
+				});
+
+				indent = parseInt((0 - totalToCurrent) + offset, null)
+				
 				activeLevel.css(level.direction, indent);
 									
 			}
 			
 		});
-				
-		// Private methods
-		
-		
-		//////////////////////////
-		
-		self.init();
-				
+
 	}
 
 	
@@ -291,6 +298,7 @@
 		return this.each(function() {
 			var settings = $.extend({}, $.jc.xmb.defaults, options);
 			el = new XMB($(this), settings);
+			el.init();
 			$(this).data('xmb', el);
 		});
 		

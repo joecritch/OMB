@@ -15,59 +15,60 @@
 <body>
 	
 	<div id="container">
-
+		
 
 			<div class="xmb-outer">
+			
+				<canvas id="background" resize keepalive="true"></canvas>
 			
 				<ul data-level="0" class="xmb">
 				
 					<li class="users">
-						<i></i>
-						<h2>Users</h2>
+						
+						<h2><i></i><span>Users</span></h2>
 						<div>
 						<ul data-level="1">
-							<li class="current">Sub item 1</li>
-							<li>Sub item 2</li>
-							<li>Sub item 3</li>
+							<li class="clearfix turn-off current"><i></i><span class="title">Turn Off System</span></li>
+							<li class="clearfix create-user"><i></i><span class="title">Create New User</span></li>
+							<li class="clearfix existing-user"><i></i><span class="title">User 1</span></li>
 						</ul>
 						</div>
 					</li>
 				
-					<li class="settings">
-						<h2>Settings</h2>
+					<li class="settings current">
+						<h2><i></i><span>Settings</span></h2>
 						<div>
 						<ul data-level="1">
-							<li class="current">Sub item 1</li>
-							<li>Sub item 2</li>
-							<li>Sub item 3
+							<li class="current game-settings"><i></i><span>Game Settings</span>
 								<div>
 									<ul data-level="2">
 										<li>Setting 1</li>
 										<li>Setting 2</li>
 										<li>Setting 3</li>
-										<li>Setting 4</li>
-										<li>Setting 5</li>
-										<li>Setting 6</li>
 									</ul>
-								</div>
+								</div>	
 							</li>
+							<li class="video-settings"><i></i><span>Video Settings</span></li>
+							<li class="game-settings"><i></i><span>Music Settings</span></li>
+							<li class="audio-settings"><i></i><span>Audio Settings</span></li>
+							<li class="security-settings"><i></i><span>Security Settings</span></li>
+							<li class="system-settings"><i></i><span>System  Settings</span></li>
 						</ul>
 						</div>
 					</li>
 				
 					<li class="photo">
-						<h2>Photo</h2>
+						<h2><i></i><span>Photo</span></h2>
 						<div>
 						<ul data-level="1">
-							<li class="current">Sub item 1</li>
-							<li>Sub item 2</li>
-							<li>Sub item 3</li>
+							<li class="current server"><i></i><span>Search for Media Servers</span></li>
+							<li class="playlists"><i></i><span>Playlists</span></li>
 						</ul>
 						</div>
 					</li>
 				
 					<li class="music">
-						<h2>Music</h2>
+						<h2><i></i><span>Music</span></h2>
 						<div>
 						<ul data-level="1">
 							<li class="current">Sub item 1</li>
@@ -78,7 +79,7 @@
 					</li>
 				
 					<li class="video">
-						<h2>Video</h2>
+						<h2><i></i><span>Video</span></h2>
 						<div>
 						<ul data-level="1">
 							<li class="current">Sub item 1</li>
@@ -88,8 +89,8 @@
 						</div>
 					</li>
 				
-					<li class="game current">
-						<h2>Game</h2>
+					<li class="game">
+						<h2><i></i><span>Game</span></h2>
 						<div>
 						<ul data-level="1">
 							<li class="current">Sub item 1</li>
@@ -104,7 +105,7 @@
 					</li>
 				
 					<li class="network">
-						<h2>Network</h2>
+						<h2><i></i><span>Network</span></h2>
 						<div>
 						<ul data-level="1">
 							<li class="current">Sub item 1</li>
@@ -115,7 +116,7 @@
 					</li>
 				
 					<li class="friends">
-						<h2>Friends</h2>
+						<h2><i></i><span>Friends</span></h2>
 						<div>
 						<ul data-level="1">
 							<li class="current">Sub item 1</li>
@@ -128,23 +129,59 @@
 				</ul>
 			
 			</div>
-		
-	
-		<!--
-		
-		<footer id="footer">
-			
-			<p>Video Gallery, using CSS3 3D Transforms &amp; JavaScript State Control &mdash; by <a href="http://twitter.com/joecritchley" target="_blank">@joecritchley</a></p>
-			
-		</footer>
-		
-		-->
 
 	</div>
 
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 	<script src="js/jquery.jc.xmb.js"></script>
+	<script src="js/paper.js"></script>
 	<script src="js/master.js"></script>
+	<script type="text/paperscript" canvas="background">
+	
+	/**
+	 * Replicate the background
+	 */
+	
+	// The amount of segment points we want to create:
+	var amount = 5;
+
+	// The maximum height of the wave:
+	var height = 60;
+
+	// Create a new path and style it:
+	var path = new Path();
+	path.style = {
+	    strokeColor: new GrayColor(0, 0.2),
+	    strokeWidth: 5,
+	    strokeCap: 'square'
+	};
+
+	// Add 5 segment points to the path spread out
+	// over the width of the view:
+	for (var i = 0; i <= amount; i++) {
+	    path.add(new Point(i / amount, 1) * view.size);
+	}
+
+	// Select the path, so we can see how it is constructed:
+	path.selected = false;
+
+	function onFrame(event) {
+	    // Loop through the segments of the path:
+	    for (var i = 0; i <= amount; i++) {
+	        var segment = path.segments[i];
+
+	        // A cylic value between -1 and 1
+	        var sinus = Math.sin(event.time * 1 + i);
+
+	        // Change the y position of the segment point:
+	        segment.point.y = sinus * height + 300;
+	    }
+	    // Uncomment the following line and run the script again
+	    // to smooth the path:
+	    path.smooth();
+	}
+	
+	</script>
 	
 </body>
 </html>

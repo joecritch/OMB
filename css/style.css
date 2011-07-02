@@ -24,6 +24,7 @@ h1, h2, h3 {
 .xmb-outer {
 	position: relative;
 	height: 100%;
+	-webkit-user-select: none;
 }
 
 .xmb {
@@ -33,30 +34,57 @@ h1, h2, h3 {
 	-webkit-transition: left 0.2s ease-out;
 	left: 0;
 	height: 100%;
+	z-index: 3;
 }
 
 	.xmb > li {
 		float: left;
 		display: inline;
-		width: 14%;
-		background: #333;
+		width: 10%;
 		height: 100%;
+		 outline: 1px solid yellow; -- Used for debugging *
 		-webkit-transition: background-color 0.2s ease-out;
 	}
-	.xmb > li.current {
-		background: #fff;
-		color: #000;
-	}
+
+	
 	
 		.xmb > li > h2 {
 			text-align: center;
-			margin-top: 25%;
+			margin-top: 100px;
+			position: relative;
+			-webkit-transition: all 0.2s ease-in-out;
 		}
+		.xmb > li:not(.current) > h2 {
+			opacity: 0.5;
+		}
+		body.state-pop .xmb > li:not(.current) > h2 {
+			opacity: 0;
+		}
+		body.state-pop .xmb > li.current > h2 {
+			left: -100%;
+		}
+		
+			.xmb > li > h2 > i {
+				display: block;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			body.state-pop .xmb > li.current h2 > span {
+				opacity: 0;
+			}
 		
 		.xmb > li > div {
 			position: relative;
 			margin-top: 20px;
+/*			-webkit-transition: -webkit-transform 2s linear;*/
 		}
+		
+		body.state-pop .xmb > li.current > div {
+/*			-webkit-transform: scale(0.5);*/
+			left: -100%;
+		}
+		
 	
 		.xmb > li > div > ul {
 			display: none;
@@ -65,41 +93,107 @@ h1, h2, h3 {
 			height: 20000em;
 			list-style: none;
 			-webkit-transition: top 0.2s ease-out;
-			width: 100%;
+			width: 300%;
 			margin: 0;
+			
 		}
 		.xmb > li.current > div > ul {
 			display: block;
 		}
-			
+	
 			
 			
 			.xmb > li.current > div > ul > li {
-				padding: 10px;
+				padding: 10px 0;
 				-webkit-transition: background-color: 1s ease-out;
-				background: #fff;
 				position: relative;
+				font-size: 16px;
+				outline: 1px solid yellow;
+				-webkit-font-smoothing: antialiased;
+/*				height: 60px;*/
 			}
 	
-			.xmb > li.current > div > ul > li.before-current {
-				margin-bottom: 50px;
+			/** Clearfix **/
+			.xmb > li > div > ul > li:before, .xmb > li > div > ul > li:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+			.xmb > li > div > ul > li:after { clear: both; }
+			.xmb > li > div > ul > li { zoom: 1; }
 			
+			body.state-pop .xmb > li.current > div > ul > li > span {
+				opacity: 0;
 			}
+	
 	
 			.xmb > li.current > div > ul > li.current {
-				background: #000;
 				color: #fff;
-				padding: 20px 10px;
-				margin-bottom: 10px;
+				padding: 20px 0;
+/*				margin-bottom: 10px;*/
+				padding-bottom: 20px;
+				padding-top: 200px;
 			}
+			.xmb > li.current > div > ul > li.current:first-child {
+				padding-top: 50px;
+			}
+			
+			
+			body.state-pop .xmb > li.current > div > ul > li.current {
+/*				-webkit-transform: scale(1.33);*/
+			}
+			
+				.xmb > li.current > div > ul > li > i {
+/*					width: 33.3%;*/
+					width: 60px;
+					height: 40px;
+					float: left;
+					display: inline;
+					margin-right: 10px;
+					position: relative;
+					-webkit-background-size: cover;
+					margin-left: 30px;
+					background-repeat: no-repeat;
+					background-position: 50% 50%;
+					-webkit-transition: all 0.2s ease-out;
+				}
+				
+				.xmb > li.current > div > ul > li.current i {
+					width: 90px;
+					height: 90px;
+					margin-right: -15px;
+					margin-left: 15px;
+				}
+				
+				.xmb > li > div > ul > li > span {
+					position: relative;
+					top: 10px;
+					left: 30px;
+					-webkit-transition: all 0.2s ease-out;
+				}
+				
+				.xmb > li > div > ul > li.current > span {
+					top: 40px;
+					left: 45px;
+					-webkit-animation: textpulse 1.5s 0 infinite;
+				}
+				
+				body.state-pop .xmb > li.current > div > ul > li:not(.current) > i {
+					opacity: 0.5;
+					-webkit-transform: scale(0.5);
+					left: 10%;
+				}
+				
+				body.state-pop .xmb > li.current > div > ul > li > div {
+					position: relative;
+					left: 40%;
+				}
 			
 				.xmb > li.current > div > ul > li > div > ul {
 					display: none;
 					position: absolute;
-					left: 100px;
-					top: 10px;
-					width: 200px;
+					left: 0;
+					top: 0;
+					width: 100%;
+					margin-left: 0;
 					list-style: none;
+					-webkit-transition: top 0.2s ease-out;
 				}
 				
 				body.state-pop .xmb > li.current > div > ul > li.current > div > ul {
@@ -108,12 +202,82 @@ h1, h2, h3 {
 				
 					.xmb > li.current > div > ul > li > div > ul > li {
 						padding: 10px;
-						background: white;
-						color: black;
+						outline: 1px solid white;
 					}
 					
 					.xmb > li.current > div > ul > li > div > ul > li.current {
-						background: yellow;
+	
 					}
-				
-				
+
+
+/*********************************************** 
+ * Icons
+ */
+
+h2 > i { width: 90px; height: 90px; background: none no-repeat 50% 50%; -webkit-background-size: cover; -webkit-transition: all 0.2s ease-out; }
+
+
+.users > h2 > i { background-image: url('../img/icons-big/Icons.6.png'); }
+.turn-off > i {  background-image: url('../img/icons-big/Icons.62.png');  }
+.create-user > i { background-image: url('../img/icons-big/Icons.37.png');  }
+.existing-user > i {  background-image: url('../img/icons-big/Icons.12.png');  }
+
+.settings > h2 > i { background-image: url('../img/icons-big/Icons.35.png'); }
+.game-settings > i { background-image: url('../img/icons-big/Icons.27.png'); }
+.video-settings > i { background-image: url('../img/icons-big/Icons.26.png'); }
+.music-settings > i { background-image: url('../img/icons-big/Icons.29.png'); }
+.system-settings > i { background-image: url('../img/icons-big/Icons.36.png'); }
+.security-settings > i { background-image: url('../img/icons-big/Icons.33.png'); }
+.audio-settings > i { background-image: url('../img/icons-big/Icons.34.png'); }
+
+
+.photo > h2 > i { background-image: url('../img/icons-big/Icons.1.png'); }
+.music > h2 > i { background-image: url('../img/icons-big/Icons.16.png'); }
+.video > h2 > i { background-image: url('../img/icons-big/Icons.38.png'); }
+.game > h2 > i { background-image: url('../img/icons-big/Icons.39.png'); }
+.network > h2 > i { background-image: url('../img/icons-big/Icons.18.png'); }
+.friends > h2 > i { background-image: url('../img/icons-big/Icons.9.png'); }
+.current > h2 > i { width: 120px; height: 120px; margin-top: -15px !important; margin-bottom: -13px !important; }
+
+/*********************************************** 
+ * Keyframes
+ */			
+
+@-webkit-keyframes textpulse {
+	0% {
+		text-shadow: 0 0 7px rgba(255, 255, 255, 0);
+	}
+	25% {
+		text-shadow: 0 0 7px rgba(255, 255, 255, 1);
+	}
+	75% {
+		text-shadow: 0 0 7px rgba(255, 255, 255, 1);
+	}
+	100% {
+		text-shadow: 0 0 7px rgba(255, 255, 255, 0);
+	}	
+}
+
+/*********************************************** 
+ * Background
+ */	
+
+.xmb-outer {
+	background-color:#091076;
+	background-image: -moz-linear-gradient(-90deg, #5DD6F9, #091076 700px);
+	background-image: -webkit-linear-gradient(-90deg, #5DD6F9, #091076 700px);
+	background-image: -o-linear-gradient(-90deg, #5DD6F9, #091076 700px);
+	background-image: -ms-linear-gradient(-90deg, #5DD6F9, #091076 700px);
+	background-image: linear-gradient(-90deg, #5DD6F9, #091076 700px);
+	position: relative;
+	z-index: 1;
+}
+
+.xmb-outer #background {
+	width: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 2;
+}
