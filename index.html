@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/css/setup.css">
 	<link rel="stylesheet" href="/css/style.css">
 	
-	<meta name="viewport" content="initial-scale=1.0">
+	<meta name="viewport" content="width=800px">
 	<meta name="apple-mobile-web-app-capable" content="yes"> 
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	
@@ -258,47 +258,51 @@
 	<script src="/js/master.js"></script>
 	<script type="text/paperscript" canvas="background">
 	
-	/**
-	 * Replicate the background
-	 */
+	if(!Modernizr.touch) {
 	
-	// The amount of segment points we want to create:
-	var amount = 5;
+		/**
+		 * Replicate the background
+		 */
+	
+		// The amount of segment points we want to create:
+		var amount = 5;
 
-	// The maximum height of the wave:
-	var height = 60;
+		// The maximum height of the wave:
+		var height = 60;
 
-	// Create a new path and style it:
-	var path = new Path();
-	path.style = {
-	    strokeColor: new GrayColor(0, 0.2),
-	    strokeWidth: 5,
-	    strokeCap: 'square'
-	};
+		// Create a new path and style it:
+		var path = new Path();
+		path.style = {
+		    strokeColor: new GrayColor(0, 0.2),
+		    strokeWidth: 5,
+		    strokeCap: 'square'
+		};
 
-	// Add 5 segment points to the path spread out
-	// over the width of the view:
-	for (var i = 0; i <= amount; i++) {
-	    path.add(new Point(i / amount, 1) * view.size);
-	}
+		// Add 5 segment points to the path spread out
+		// over the width of the view:
+		for (var i = 0; i <= amount; i++) {
+		    path.add(new Point(i / amount, 1) * view.size);
+		}
 
-	// Select the path, so we can see how it is constructed:
-	path.selected = false;
+		// Select the path, so we can see how it is constructed:
+		path.selected = false;
 
-	function onFrame(event) {
-	    // Loop through the segments of the path:
-	    for (var i = 0; i <= amount; i++) {
-	        var segment = path.segments[i];
+		function onFrame(event) {
+		    // Loop through the segments of the path:
+		    for (var i = 0; i <= amount; i++) {
+		        var segment = path.segments[i];
 
-	        // A cylic value between -1 and 1
-	        var sinus = Math.sin(event.time * 1 + i);
+		        // A cylic value between -1 and 1
+		        var sinus = Math.sin(event.time * 1 + i);
 
-	        // Change the y position of the segment point:
-	        segment.point.y = sinus * height + 300;
-	    }
-	    // Uncomment the following line and run the script again
-	    // to smooth the path:
-	    path.smooth();
+		        // Change the y position of the segment point:
+		        segment.point.y = sinus * height + 300;
+		    }
+		    // Uncomment the following line and run the script again
+		    // to smooth the path:
+		    path.smooth();
+		}
+	
 	}
 	
 	</script>
