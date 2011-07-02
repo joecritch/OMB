@@ -1,19 +1,9 @@
 (function($) {
-	
-	// @todo -- Some selectors are still hardcoded
-	
+
 	$.jc = $.jc || {};
-	$.jc.xmb = {
+	$.jc.omb = {
 		defaults: {
 			statePrefix: 'state-',
-			keyboard: true,
-			keyboardControls: {
-				right: 39,
-				up: 38,
-				left: 37,
-				down: 40,
-				enter: 13
-			},
 			onInit: function(level, items) { },
 			level: {
 				state: 'pop',
@@ -27,7 +17,7 @@
 		}
 	};
 	
-	function XMB(root, settings) {
+	function OMB(root, settings) {
 		
 		var self = this,
 			fire = root.add(self),
@@ -77,84 +67,19 @@
 				return false;
 			});
 			
-			if(settings.keyboard) {
-				$(window).keyup(function(e) {
-					var level = self.getLevelProperties(activeLevel);
-					var currentItems = activeLevel.find(level.items);
-					switch(e.which) {
-						case settings.keyboardControls.right:
-							if(level.depth < 2) {
-								var element = root.find('> ul > li').filter('.current').next('li');
-								if(element.length) {
-									self.goTo(element);
-								}
-							}
-						break;
-						case settings.keyboardControls.up:
-						var currentItem;
-						if(level.depth == 0) {
-					//		self.getCurrent(currentItems)
-							currentItem = activeLevel.find('li.current > div > ul > li.current');
-							
-							// current item + its inner + the current item in there
-						}
-						else {
-							currentItem = activeLevel.find('li.current');
-						}
-						var newCurrent = currentItem.prev('li');
-						if(newCurrent.length) {
-							self.goTo(newCurrent);
-						}	
-						break;
-						case settings.keyboardControls.left:
-							if(level.depth < 2) {
-								var element = root.find('> ul > li').filter('.current').prev('li');
-								
-							}
-							else {
-								var element = root.find('> ul > li.current > div > ul > li.current');
-								
-							}
-							if(element.length) {
-								self.goTo(element);
-							}
-						break;
-						case settings.keyboardControls.down:
-						var currentItem;
-						if(level.depth == 0) {
-							 currentItem = activeLevel.find('li.current > div > ul > li.current');
-						}
-						else {
-							currentItem = activeLevel.find('li.current');
-						}
-						var newCurrent = currentItem.next('li');
-						if(newCurrent.length) {
-							self.goTo(newCurrent);
-						}
-						break;
-						
-						case settings.keyboardControls.enter:
-						
-						var childMenu;
-						// Go slightly deeper if its on the top level.
-						if(level.depth == 0) {
-							childMenu = activeLevel.find('li.current > div > ul > li.current > div > ul');
-							self.openChild(activeLevel.find('li.current > div > ul > li.current'));
-						}
-						else {
-							childMenu = activeLevel.find('li.current > div > ul');
-							self.openChild(activeLevel.find('li.current'));
-						}
-						break;
-					}
-				});
-			}
-			
 		};
 		
 		// Public methods
 		
 		$.extend(self, {
+			
+			getActiveLevel: function() {
+				return activeLevel;
+			},
+			
+			getRoot: function() {
+				return root;
+			},
 			
 			goTo: function(element) {
 				
@@ -288,18 +213,18 @@
 	
 	// Plugin call
 	
-	$.fn.xmb = function(options) {
+	$.fn.omb = function(options) {
 		
-		var el = this.data('xmb');
+		var el = this.data('omb');
 		if(el) {
 			return el;
 		}
 	
 		return this.each(function() {
-			var settings = $.extend({}, $.jc.xmb.defaults, options);
-			el = new XMB($(this), settings);
+			var settings = $.extend({}, $.jc.omb.defaults, options);
+			el = new OMB($(this), settings);
 			el.init();
-			$(this).data('xmb', el);
+			$(this).data('omb', el);
 		});
 		
 	};
